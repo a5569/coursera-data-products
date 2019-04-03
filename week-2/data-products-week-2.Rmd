@@ -1,0 +1,26 @@
+---
+title: "Data Products - Week 2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(leaflet)
+library(tidyverse)
+```
+
+## Biggest cities in Brazil
+
+### April 03, 2019
+
+```{r leaflet}
+cities <- data.frame(label = c('São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador', 'Fortaleza', 'Belo Horizonte', 'Manaus', 'Curitiba', 'Recife', 'Goiânia'),
+                     radius = c(12176866, 6688927, 2974703, 2857329, 2643247, 2501576, 2145444, 1917185, 1637834, 1495705),
+                     lat = c(-23.550278, -22.902778, -15.793889, -12.971111, -3.718333, -19.816944, -3.1, -25.429722, -8.053889, -16.666667),
+                     lng = c(-46.633889, -43.207778, -47.882778, -38.510833, -38.542778, -43.955833, -60.016667, -49.271944, -34.880833, -49.25))
+
+map <- leaflet(cities) %>%
+  addTiles() %>%
+  addCircleMarkers(lng = ~lng, lat = ~lat, radius = ~radius/12176866*30, opacity = 0.5, label = ~label, fill = TRUE)
+map
+```
