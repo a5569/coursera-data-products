@@ -1,0 +1,26 @@
+---
+title: "Coursera Data Products - Week 3"
+author: "Andre"
+date: "4 april 2019"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(plotly)
+data("mtcars")
+```
+
+## Scatterplot
+
+```{r scatterplot}
+plot_ly(data = mtcars, x = ~disp, y = ~mpg, color = ~cyl, type = "scatter", mode = "markers")
+```
+
+## Boxplot
+
+```{r boxplot}
+plot_ly(data = mtcars, y = ~mpg, type = "box", name = "mpg")
+```
+
+## Thanks
