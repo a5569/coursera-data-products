@@ -1,0 +1,45 @@
+---
+title: "Coursera - Data Products"
+author: "Andre"
+date: "4 april 2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(dslabs)
+library(tidyverse)
+data("murders")
+```
+
+## Motivation - Gun murder data
+
+When choosing a place to live the security can be an important feature.
+
+To help the decision I created an way to better visualize this information using Shiny.
+
+## Data
+
+The data for this report came from the FBI througth the R package *dslabs* and have the following summary.
+
+```{r summary}
+summary(murders)
+```
+
+## Visualizing the data
+
+To understand the data first we can see a plot with each country, his population and total gun murders in 2010. 
+
+```{r plot}
+qplot(data = murders, x = population, y = total) + stat_smooth(method = "lm") + ylab('Total gun murders in 2010') + xlab('Population')
+```
+
+## Detailing the data
+
+To understand even better we can see not only the total of murders, but also the top 5 states with highest murder rate, since the total number can be misleading.
+
+We can also filter by region of the U.S.
+
+```{r table}
+murders %>% mutate(murder_rate_per_100000 = total/population*100000) %>% select(region, state, murder_rate_per_100000, gun_murders = total, population) %>% arrange(desc(murder_rate_per_100000)) %>% top_n(5)
+```
